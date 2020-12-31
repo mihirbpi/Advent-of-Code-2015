@@ -1,7 +1,7 @@
 from aocd import get_data
 import re
 
-my_list =  get_data(day=8, year=2015).split("\n")
+my_list = get_data(day=8, year=2015).split("\n")
 
 pattern_literal = re.compile(r'''
                              \\\\| # The double backslash (represents a backlash)
