@@ -4,7 +4,7 @@ import itertools
 
 my_list = get_data(day=9, year=2015).split("\n")
 
-parse_pattern = re.compile(r'(\w+)\W(\w+)\W(\w+)\W=\W(\w+)')
+parse_pattern = re.compile(r'(\w+) to (\w+) = (\w+)')
 distances_dict = {}
 cities = set()
 
@@ -12,13 +12,13 @@ for i in range(0, len(my_list)):
     string = my_list[i]
     matches = parse_pattern.finditer(string)
     match = list(matches)[0]
-    start = match.group(1)
-    end = match.group(3)
-    distance = int(match.group(4))
-    cities.add(start)
-    cities.add(end)
-    distances_dict[(start, end)] = distance
-    distances_dict[(end, start)] = distance
+    start_city = match.group(1)
+    end_city = match.group(2)
+    distance = int(match.group(3))
+    cities.add(start_city)
+    cities.add(end_city)
+    distances_dict[(start_city, end_city)] = distance
+    distances_dict[(end_city, start_city)] = distance
 
 routes = list(itertools.permutations(list(cities)))
 possible_route_dists = set()
