@@ -12,7 +12,7 @@ def combinations(lst):
 
     return combs
 
-def num_combos(lst, combo_sum):
+def combos(lst, combo_sum):
     combos_set = []
     all_combos = combinations(lst)
 
@@ -21,6 +21,8 @@ def num_combos(lst, combo_sum):
         if(sum(combo) == combo_sum):
             combos_set.append(combo)
 
-    return len(combos_set)
+    return combos_set
 
-print(num_combos(my_list, 150))
+combos150 = combos(my_list, 150)
+min_length = min([len(combo) for combo in combos150])
+print(len(list(filter(lambda x: len(x) == min_length, combos150))))
