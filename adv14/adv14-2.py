@@ -5,6 +5,7 @@ my_list = get_data(day=14, year=2015).split("\n")
 parse_pattern = re.compile(r'(\w+) can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.')
 reindeer_list = []
 reindeer_info = {}
+points_dict = {}
 
 def find_distance(time, reindeer):
     speed = reindeer_info[reindeer][0]
@@ -38,6 +39,21 @@ def find_distance(time, reindeer):
 
     return distance
 
+def find_points(time, points_dict):
+    t = 0
+
+    while(t <= time):
+        farthest_distance = max([find_distance(t, reindeer) for reindeer in reindeer_list])
+
+        for reindeer in reindeer_list:
+
+            if(find_distance(t, reindeer) == farthest_distance):
+                points_dict[reindeer] += 1
+
+        t += 1
+
+    return points_dict
+
 for i in range(0, len(my_list)):
     rule = my_list[i]
     match = list(parse_pattern.finditer(rule))[0]
@@ -46,6 +62,7 @@ for i in range(0, len(my_list)):
     fly_interval = int(match.group(3))
     rest_interval = int(match.group(4))
     reindeer_list.append(reindeer)
+    points_dict[reindeer] = 0
     reindeer_info[reindeer] = [speed, fly_interval, rest_interval]
 
-print(max([find_distance(2503, reindeer) for reindeer in reindeer_list]))
+print(max(find_points(2503, points_dict).values()))
