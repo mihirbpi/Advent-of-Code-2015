@@ -1,9 +1,7 @@
 from aocd import get_data
 import re
-import math
 
-file = open("input.txt", "r")
-my_list = file.read().split("\n")[:-1]
+my_list = get_data(day=14, year=2015).split("\n")
 parse_pattern = re.compile(r'(\w+) can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.')
 reindeer_list = []
 reindeer_info = {}
